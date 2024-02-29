@@ -1,14 +1,7 @@
 import ReactDom from "react-dom/client";
-
-
-const SomeComponent = () => {
-    return (
-        <>
-        <div>Blinkit</div>
-        </>
-    )
-}
+import { RouterProvider } from 'react-router-dom';
+import { appRoute } from "./routes";
 
 const rootElement = document.getElementById('root');
 const reactRoot = ReactDom.createRoot(rootElement);
-reactRoot.render(<SomeComponent/>);
+reactRoot.render(<RouterProvider router={appRoute}/>);

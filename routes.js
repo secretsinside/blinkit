@@ -1,10 +1,12 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import HomeComponent from "./src/components/HomeComponent";
 import Header from "./src/components/Header";
+import { useSelector } from "react-redux";
 
 const AppComponent = () => {
+    const theme = useSelector((store) => store.theme.currentTheme);
     return (
-        <div>
+        <div className={theme}>
             <Header/>
             <Outlet/>
         </div>

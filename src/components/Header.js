@@ -23,8 +23,11 @@ const Header = () => {
                 <button 
                     className="mx-4 text-3xl"
                     onClick={changeTheme}><CiLight/></button>
-                <button className="mx-4">Login</button>
-                <button className="mx-4 text-3xl"><CiShoppingCart/></button>
+                <button className="mx-4 m-auto">Login</button>
+                <button className="p-2 text-3xl flex rounded-md bg-green-600 h-min m-auto text-white font-bold">
+                    <CiShoppingCart className="h-6"/>
+                    <span className="m-auto text-sm">My Cart</span>
+                </button>
             </div>
         </div>
     )

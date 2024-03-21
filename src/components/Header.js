@@ -33,9 +33,9 @@ const Header = () => {
                             <span className="m-auto text-sm">My Cart</span>
                         </>
                         :
-                        <div className="flex-column text-sm text-left">
+                        <div className="flex-column text-sm text-left m-auto">
                             <p>{cartItems.quantity} items</p>
-                            <p>₹{cartItems.totalPrice/100}</p>
+                            <p className="-mt-2">₹{cartItems.totalPrice/100}</p>
                         </div>
                     }
                 </button>

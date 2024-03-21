@@ -1,9 +1,10 @@
 import { CiLight, CiShoppingCart } from "react-icons/ci";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../store/themeSlice";
 
 const Header = () => {
     const dispatch = useDispatch();
+    const cartItems = useSelector(state => state.cart);
 
     const changeTheme = () => {
         dispatch(toggleTheme());
@@ -23,8 +24,21 @@ const Header = () => {
                 <button 
                     className="mx-4 text-3xl"
                     onClick={changeTheme}><CiLight/></button>
-                <button className="mx-4">Login</button>
-                <button className="mx-4 text-3xl"><CiShoppingCart/></button>
+                <button className="mx-4 m-auto">Login</button>
+                <button className="p-2 text-3xl flex rounded-md bg-green-600 h-min m-auto text-white font-bold">
+                    <CiShoppingCart className="m-auto h-6"/>
+                    {
+                        cartItems.quantity === 0 ? 
+                        <>
+                            <span className="m-auto text-sm">My Cart</span>
+                        </>
+                        :
+                        <div className="flex-column text-sm text-left m-auto">
+                            <p>{cartItems.quantity} items</p>
+                            <p className="-mt-2">₹{cartItems.totalPrice/100}</p>
+                        </div>
+                    }
+                </button>
             </div>
         </div>
     )

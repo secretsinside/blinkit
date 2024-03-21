@@ -37,7 +37,7 @@ const ItemCard = ({isCategory, item, category}) => {
                         <p className="text-sm font-semibold h-2/6">
                             {item.name}
                         </p>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-gray-400 h-1/6">
                             {item.qty}
                         </p>
                         <div className="flex justify-between h-2/6">

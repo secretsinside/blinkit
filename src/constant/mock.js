@@ -8,6 +8,16 @@ export const item = {
     bestseller: true
 }
 
+export const item2 = {
+    id: "xaiuid",
+    name: 'Mint (pack of 6)',
+    thumbnailUrl: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/images/products/sliding_image/496994a.jpg?ts=1698309251",
+    qty: '6 pieces',
+    discountedPrice: '',
+    mrp: '1200',
+    bestseller: true
+}
+
 export const category = {
     category: [
         {

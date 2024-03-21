@@ -1,6 +1,18 @@
+import { useDispatch } from "react-redux";
 import AddBtn from "../utils/AddBtn";
+import { addItem, removeItem } from "../store/cartSlice";
 
 const ItemCard = ({isCategory, item, category}) => {
+
+    const dispatch = useDispatch();
+
+    function addItemToCart() {
+        dispatch(addItem(item));
+    }
+
+    function removeItemFromCart() {
+        dispatch(removeItem(item));
+    }
 
     if(category !== undefined)console.log(category.name);
     
@@ -14,7 +26,7 @@ const ItemCard = ({isCategory, item, category}) => {
                     <p className="text-sm font-semibold text-center">{category.name}</p>
                 </div>
             : 
-                <div className="p-2 m-4 rounded-md w-40 h-72 flex-column border-x border-y border-gray-400">
+                <div className="p-2 m-4 rounded-md w-40 h-72 flex-column border-x border-y border-gray-300">
                     <img className="rounded-xl m-auto p-4" 
                         src={item.thumbnailUrl} 
                         alt="image"/>
@@ -37,7 +49,9 @@ const ItemCard = ({isCategory, item, category}) => {
                                 ₹ {item.mrp/100}
                                 </p>
                             </div>
-                            <AddBtn/>
+                            <AddBtn 
+                                addCallback={addItemToCart}
+                                removeCallback={removeItemFromCart}/>
                         </div>
                     </div>
                 </div>

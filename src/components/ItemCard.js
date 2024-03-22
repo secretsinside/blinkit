@@ -31,8 +31,8 @@ const ItemCard = ({isCategory, item, category}) => {
                         src={item.thumbnailUrl} 
                         alt="image"/>
                     <div className="h-2/6">
-                        <p className="text-xs font-semibold bg-yellow-600 w-min text-white rounded-md px-1 h-1/6">
-                            {item.bestseller ? "Bestseller" : " "}
+                        <p className={(item.bestseller ? "bg-yellow-600" : "") + " text-xs font-semibold  w-min text-white rounded-md px-1 h-1/6"}>
+                            {item.bestseller ? "Bestseller" : ""}
                         </p>
                         <p className="text-sm font-semibold h-2/6">
                             {item.name}

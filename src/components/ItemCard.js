@@ -42,10 +42,10 @@ const ItemCard = ({isCategory, item, category}) => {
                         </p>
                         <div className="flex justify-between h-2/6">
                             <div className="text-xs font-semibold">
-                                {item.discountedPrice && <p className="">
+                                {(item.discountedPrice && item.discountedPrice !== item.mrp) && <p className="">
                                 ₹ {item.discountedPrice/100}
                                 </p>}
-                                <p className={item.discountedPrice ? "line-through text-gray-400" : ""}>
+                                <p className={(item.discountedPrice && item.discountedPrice !== item.mrp) ? "line-through text-gray-400" : ""}>
                                 ₹ {item.mrp/100}
                                 </p>
                             </div>

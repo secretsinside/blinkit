@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-const AddBtn = ({addCallback, removeCallback}) => {
-    const [itemCount, setItemCount] = useState(0);
+const AddBtn = ({initialCount, addCallback, removeCallback}) => {
+    const [itemCount, setItemCount] = useState((initialCount === undefined ? 0 : initialCount));
 
     function handleAdd() {
         setItemCount(itemCount+1);

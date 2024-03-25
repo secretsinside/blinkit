@@ -15,7 +15,7 @@ export const item2 = {
     qty: '6 pieces',
     discountedPrice: '',
     mrp: '1200',
-    bestseller: true
+    bestseller: false
 }
 
 export const category = {

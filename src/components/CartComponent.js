@@ -1,13 +1,14 @@
 import { FaCircleXmark } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import AddBtn from "../utils/AddBtn";
+import { MAX_LENGTH_OF_ITEM_NAME } from "../constant/constant";
 
 const CartComponent = ({closeCartModal}) => {
 
     const items = useSelector((store) => store.cart.items);
 
     return (
-        <div className="absolute w-screen h-screen top-0 left-0 bg-transparent flex">
+        <div className="absolute w-full h-screen top-0 left-0 bg-transparent flex">
             <div className="w-9/12 bg-gray-600 bg-opacity-40"
                 onClick={closeCartModal}>    
             </div>
@@ -17,25 +18,29 @@ const CartComponent = ({closeCartModal}) => {
                     <button className=""
                         onClick={closeCartModal}><FaCircleXmark className="text-lg"/></button>
                 </div>
-                <div className="px-4">
+                <div className="p-4">
                     {
                         items?.length ?
-                        <div className="w-full my-5">
+                        <div className="w-full my-5 rounded-md bg-white py-2">
                             {
                                 items.map((item) => (
-                                    <div className="flex bg-white p-2">
-                                        <img className="w-16 h-16" 
+                                    <div key={item.id} className="flex bg-white p-2 text-xs">
+                                        <img className="w-16 h-16 border-x border-y" 
                                             src={item.thumbnailUrl}/>
-                                        <div className="w-4/6">
-                                            <p className="4/6">{item.name}</p>
-                                            <p className="1/6">{item.qty}</p>
+                                        <div className="w-4/6 px-2">
+                                            <p className="leading-tight h-3/6">
+                                                {item.name.slice(0, MAX_LENGTH_OF_ITEM_NAME) + (item.name.length > MAX_LENGTH_OF_ITEM_NAME ? "..." : "")}
+                                            </p>
+                                            <p className="text-gray-500">{item.qty}</p>
                                             <div className="flex w-1/6">
-
-                                                <p className="">₹{item.discountedPrice/100}</p>
-                                                {item.mrp != item.discountedPrice && <p className="line-through text-gray-400">₹{item.mrp/100}</p>}
+                                                <p className="font-bold">₹{item.discountedPrice/100}</p>
+                                                &nbsp;
+                                                {item.mrp != item.discountedPrice && <p className="line-through text-gray-400">₹{+ item.mrp/100}</p>}
                                             </div>
                                         </div>
-                                        <AddBtn initialCount={item.quantity}/>
+                                        <div className="content-end ">
+                                            <AddBtn initialCount={item.quantity}/>
+                                        </div>
                                     </div>
                                 ))
                             }

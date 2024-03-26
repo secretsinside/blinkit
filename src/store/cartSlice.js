@@ -5,7 +5,8 @@ const cartSlice = createSlice({
     initialState: {
         items: [],
         quantity: 0,
-        totalPrice: 0
+        totalMrp: 0,
+        totalDiscountedPrice: 0
     },
     reducers: {
         addItem: (state, action) => {
@@ -23,8 +24,8 @@ const cartSlice = createSlice({
                 state.items.push(curItem);
             }
             state.quantity++;
-            state.totalPrice+= parseInt((curItem.discountedPrice) ? curItem.discountedPrice : curItem.mrp);
-
+            state.totalDiscountedPrice+= parseInt((curItem.discountedPrice) ? curItem.discountedPrice : curItem.mrp);
+            state.totalMrp+= parseInt(curItem.mrp);
             return state;
         },
         removeItem: (state, action) => {
@@ -40,7 +41,7 @@ const cartSlice = createSlice({
                 }
             }
             state.quantity--;
-            state.totalPrice-=parseInt((curItem.discountedPrice) ? curItem.discountedPrice : curItem.mrp);
+            state.totalDiscountedPrice-=parseInt((curItem.discountedPrice) ? curItem.discountedPrice : curItem.mrp);
 
             return state;
         }

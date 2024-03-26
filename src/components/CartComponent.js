@@ -1,11 +1,18 @@
-import { FaCircleXmark } from "react-icons/fa6";
+import { FaCircleXmark, FaFile, FaBicycle, FaCaretRight } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import AddBtn from "../utils/AddBtn";
 import { MAX_LENGTH_OF_ITEM_NAME } from "../constant/constant";
+import { useEffect, useState } from "react";
 
 const CartComponent = ({closeCartModal}) => {
 
-    const items = useSelector((store) => store.cart.items);
+    const {items, totalMrp, totalDiscountedPrice } = useSelector((store) => store.cart);
+    const deliveryCharge = useState(0);
+    const [grandTotal, setGrandTotal] = useState(0);
+
+    useEffect(() => {
+        setGrandTotal(parseInt(deliveryCharge)+parseInt(totalDiscountedPrice));
+    }, []);
 
     return (
         <div className="absolute w-full h-screen top-0 left-0 bg-transparent flex">
@@ -21,34 +28,63 @@ const CartComponent = ({closeCartModal}) => {
                 <div className="p-4">
                     {
                         items?.length ?
-                        <div className="w-full my-5 rounded-md bg-white py-2">
-                            {
-                                items.map((item) => (
-                                    <div key={item.id} className="flex bg-white p-2 text-xs">
-                                        <img className="w-16 h-16 border-x border-y" 
-                                            src={item.thumbnailUrl}/>
-                                        <div className="w-4/6 px-2">
-                                            <p className="leading-tight h-3/6">
-                                                {item.name.slice(0, MAX_LENGTH_OF_ITEM_NAME) + (item.name.length > MAX_LENGTH_OF_ITEM_NAME ? "..." : "")}
-                                            </p>
-                                            <p className="text-gray-500">{item.qty}</p>
-                                            <div className="flex w-1/6">
-                                                <p className="font-bold">₹{item.discountedPrice/100}</p>
-                                                &nbsp;
-                                                {item.mrp != item.discountedPrice && <p className="line-through text-gray-400">₹{+ item.mrp/100}</p>}
+                        <>
+                            <div className="w-full my-5 rounded-md bg-white py-2">
+                                {
+                                    items.map((item) => (
+                                        <div key={item.id} className="flex bg-white p-2 text-xs">
+                                            <img className="w-16 h-16 border-x border-y" 
+                                                src={item.thumbnailUrl}/>
+                                            <div className="w-4/6 px-2">
+                                                <p className="leading-tight h-3/6">
+                                                    {item.name.slice(0, MAX_LENGTH_OF_ITEM_NAME) + (item.name.length > MAX_LENGTH_OF_ITEM_NAME ? "..." : "")}
+                                                </p>
+                                                <p className="text-gray-500">{item.qty}</p>
+                                                <div className="flex w-1/6">
+                                                    <p className="font-bold">₹{item.discountedPrice/100}</p>
+                                                    &nbsp;
+                                                    {item.mrp != item.discountedPrice && <p className="line-through text-gray-400">₹{+ item.mrp/100}</p>}
+                                                </div>
+                                            </div>
+                                            <div className="content-end ">
+                                                <AddBtn initialCount={item.quantity}/>
                                             </div>
                                         </div>
-                                        <div className="content-end ">
-                                            <AddBtn initialCount={item.quantity}/>
-                                        </div>
-                                    </div>
-                                ))
-                            }
-                        </div>
+                                    ))
+                                }
+                            </div>
+                            <div className="w-full my-5 rounded-md bg-white p-2">
+                                <p className="font-bold">Bill details</p>
+                                <p className="flex items-center text-xs">
+                                    <span className="w-1/12"><FaFile/></span>
+                                    <span className="w-9/12">Item total</span>
+                                    <span className="line-through text-gray-400 w-1/12">₹{totalMrp/100}</span>
+                                    <span className="w-1/12 text-right">₹{totalDiscountedPrice/100}</span>
+                                </p>
+                                <p className="flex items-center text-xs">
+                                    <span className="w-1/12"><FaBicycle/></span>
+                                    <span className="w-9/12">Delivery charge</span>
+                                    <span className="w-2/12 text-right">{deliveryCharge}</span>
+                                </p>
+                                <p className="flex items-center font-bold justify-between text-sm my-2">
+                                    <span>Grand total</span>
+                                    <span className="text-right">₹{grandTotal/100}</span>
+                                </p>
+                            </div>
+
+                            <div className="w-full my-5 rounded-md bg-white p-2">
+                                <button className="w-full my-4 bg-green-700 text-white text-sm py-4 px-2 rounded-md flex items-center font-bold">
+                                    <span className="font-bold w-1/6 text-left">₹{grandTotal/100}</span>
+                                    <span className="w-4/6">Proceed to pay</span>
+                                    <span className="w-1/6"><FaCaretRight/></span>
+                                </button>
+                            </div>
+                        </>
                         :
                         <div className="bg-white rounded-md my-5 text-center">
                             <img className="m-auto w-60 h-60" 
                                 src="https://cdn.grofers.com/assets/ui/empty_states/emp_empty_cart.png"
+                                alt={"cart_image"}
                                 />
                             <p className="font-bold text-xl">You don't have any items in your cart</p>
                             <p className="text-gray-400">Your favourite items are just a click away</p>

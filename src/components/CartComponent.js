@@ -76,7 +76,7 @@ const CartComponent = ({closeCartModal}) => {
                                 <button className="w-full my-4 bg-green-700 text-white text-sm py-4 px-2 rounded-md flex items-center font-bold">
                                     <span className="font-bold w-1/6 text-left">₹{grandTotal/100}</span>
                                     <span className="w-4/6">Proceed to pay</span>
-                                    <span className="w-1/6"><FaCaretRight/></span>
+                                    <span className="w-1/6 text-force-right"><FaCaretRight/></span>
                                 </button>
                             </div>
                         </>

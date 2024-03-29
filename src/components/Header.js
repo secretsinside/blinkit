@@ -37,7 +37,7 @@ const Header = () => {
                     onClick={changeTheme}><CiLight/></button>
                 <button className="mx-4 m-auto">Login</button>
                 <button 
-                    className="p-2 text-3xl flex rounded-md bg-green-600 h-min m-auto text-white font-bold"
+                    className="p-2 text-3xl flex rounded-md bg-green-700 h-min m-auto text-white font-bold"
                     onClick={showCartComponent}>
                     <CiShoppingCart className="m-auto h-6"/>
                     {

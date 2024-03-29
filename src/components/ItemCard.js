@@ -35,7 +35,7 @@ const ItemCard = ({isCategory, item, category}) => {
                         <p className={(item.bestseller ? "bg-yellow-600" : "") + " text-xs font-semibold  w-min text-white rounded-md px-1 h-1/6"}>
                             {item.bestseller ? "Bestseller" : ""}
                         </p>
-                        <p className="text-sm font-semibold h-2/6">
+                        <p className="text-sm font-semibold leading-tight h-2/6">
                             {item.name.slice(0, MAX_LENGTH_OF_ITEM_NAME) + (item.name.length > MAX_LENGTH_OF_ITEM_NAME ? "..." : "")}
                         </p>
                         <p className="text-xs text-gray-400 h-1/6">

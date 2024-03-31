@@ -1,14 +1,19 @@
 import { FaCircleXmark, FaFile, FaBicycle, FaCaretRight } from "react-icons/fa6";
 import { useSelector } from "react-redux";
-import AddBtn from "../utils/AddBtn";
-import { MAX_LENGTH_OF_ITEM_NAME } from "../constant/constant";
 import { useEffect, useState } from "react";
+import ItemCard from "./ItemCard";
 
 const CartComponent = ({closeCartModal}) => {
 
-    const {items, totalMrp, totalDiscountedPrice } = useSelector((store) => store.cart);
+    const {items, selectedItemId, totalMrp, totalDiscountedPrice } = useSelector((store) => store.cart);
+    const [selectedItems, setSelectedItems] = useState(null);
     const deliveryCharge = useState(0);
     const [grandTotal, setGrandTotal] = useState(0);
+
+
+    useEffect(() => {
+        setSelectedItems(items.filter((item) => selectedItemId.indexOf(item.id) != -1))
+    }, [items]);
 
     useEffect(() => {
         setGrandTotal(parseInt(deliveryCharge)+parseInt(totalDiscountedPrice));
@@ -27,29 +32,12 @@ const CartComponent = ({closeCartModal}) => {
                 </div>
                 <div className="p-4">
                     {
-                        items?.length ?
+                        selectedItems?.length ?
                         <>
                             <div className="w-full my-5 rounded-md bg-white py-2">
                                 {
-                                    items.map((item) => (
-                                        <div key={item.id} className="flex bg-white p-2 text-xs">
-                                            <img className="w-16 h-16 border-x border-y" 
-                                                src={item.thumbnailUrl}/>
-                                            <div className="w-4/6 px-2">
-                                                <p className="leading-tight h-3/6">
-                                                    {item.name.slice(0, MAX_LENGTH_OF_ITEM_NAME) + (item.name.length > MAX_LENGTH_OF_ITEM_NAME ? "..." : "")}
-                                                </p>
-                                                <p className="text-gray-500">{item.qty}</p>
-                                                <div className="flex w-1/6">
-                                                    <p className="font-bold">₹{item.discountedPrice/100}</p>
-                                                    &nbsp;
-                                                    {item.mrp != item.discountedPrice && <p className="line-through text-gray-400">₹{+ item.mrp/100}</p>}
-                                                </div>
-                                            </div>
-                                            <div className="content-end ">
-                                                <AddBtn initialCount={item.quantity}/>
-                                            </div>
-                                        </div>
+                                    selectedItems.map((item) => (
+                                        <ItemCard key={item.id} isCartItem={true} item={item}/>
                                     ))
                                 }
                             </div>

@@ -3,7 +3,7 @@ import AddBtn from "../utils/AddBtn";
 import { addItem, removeItem } from "../store/cartSlice";
 import { MAX_LENGTH_OF_ITEM_NAME } from "../constant/constant";
 
-const ItemCard = ({isCategory, item, category}) => {
+const ItemCard = ({isCategory, item, category, isCartItem}) => {
 
     const dispatch = useDispatch();
 
@@ -15,7 +15,30 @@ const ItemCard = ({isCategory, item, category}) => {
         dispatch(removeItem(item));
     }
 
-    if(category !== undefined)console.log(category.name);
+    if(isCartItem) return (
+        <>
+            <div key={item.id} className="flex justify-between bg-white p-2 text-xs">
+                <img className="w-16 h-16 border-x border-y" 
+                    src={item.thumbnailUrl}/>
+                <div className="w-4/6 px-2">
+                    <p className="leading-tight h-3/6">
+                        {item.name.slice(0, MAX_LENGTH_OF_ITEM_NAME) + (item.name.length > MAX_LENGTH_OF_ITEM_NAME ? "..." : "")}
+                    </p>
+                    <p className="text-gray-500">{item.qty}</p>
+                    <div className="flex w-1/6">
+                        <p className="font-bold">₹{item.discountedPrice/100}</p>
+                        &nbsp;
+                        {item.mrp != item.discountedPrice && <p className="line-through text-gray-400">₹{+ item.mrp/100}</p>}
+                    </div>
+                </div>
+                <div className="content-end ">
+                    <AddBtn itemCount={item.selectedQuantity}
+                        addCallback={addItemToCart}
+                        removeCallback={removeItemFromCart}/>
+                </div>
+            </div>
+        </>
+    )
     
     return (
         <>
@@ -51,6 +74,7 @@ const ItemCard = ({isCategory, item, category}) => {
                                 </p>
                             </div>
                             <AddBtn 
+                                itemCount={item.selectedQuantity}
                                 addCallback={addItemToCart}
                                 removeCallback={removeItemFromCart}/>
                         </div>

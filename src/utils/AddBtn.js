@@ -1,22 +1,19 @@
 import { useState } from "react";
 
-const AddBtn = ({initialCount, addCallback, removeCallback}) => {
-    const [itemCount, setItemCount] = useState((initialCount === undefined ? 0 : initialCount));
+const AddBtn = ({itemCount, addCallback, removeCallback}) => {
 
     function handleAdd() {
-        setItemCount(itemCount+1);
         addCallback();
     }
 
     function handleRemove() {
-        setItemCount(itemCount-1);
         removeCallback();
     }
 
     return (
         <>
             {
-                itemCount == 0 ?
+                itemCount === 0 || itemCount === undefined ?
                     <button className="text-xs border-x border-y border-green-700 rounded-md p-1 text-green-600 font-bold w-14"
                         onClick={handleAdd}>
                         ADD

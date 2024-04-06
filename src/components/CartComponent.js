@@ -76,7 +76,10 @@ const CartComponent = ({closeCartModal}) => {
                                 />
                             <p className="font-bold text-xl">You don't have any items in your cart</p>
                             <p className="text-gray-400">Your favourite items are just a click away</p>
-                            <button className="my-4 bg-green-700 text-white text-sm p-2 rounded-md">Start shopping</button>
+                            <button className="my-4 bg-green-700 text-white text-sm p-2 rounded-md"
+                                onClick={closeCartModal}>
+                                Start shopping
+                            </button>
                         </div>
                     }
 

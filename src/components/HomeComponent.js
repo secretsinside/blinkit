@@ -10,18 +10,18 @@ const HomeComponent = () => {
     const items = useSelector((state) => state.cart.items);
     const dispatch = useDispatch();
     const fetchItems = async () => {
-        const data = await fetch(BASE_URL + "/items");
-        const dataJson = await data.json();
-        dispatch(addInventory(dataJson));
+        try {
+            const data = await fetch(BASE_URL + "/items");
+            const dataJson = await data.json();
+            dispatch(addInventory(dataJson));
+        } catch(e) {
+            console.log('looks like everyone is sleeping in our store...');
+        }
     }
 
     useEffect(() => {
         fetchItems();
     }, []);
-
-    useEffect(() => {
-        console.log("items value change");
-    }, [items]);
     
     return (
         <div className="flex-column dark:bg-green-950 dark:text-white">
@@ -40,12 +40,22 @@ const HomeComponent = () => {
                 )
             }
             {
-                items?.length && 
                 <div className="flex flex-wrap m-auto w-8/12">
                     {
-                        items.map((i) => (
-                            <ItemCard isCategory={false} key={i.id} item={i}/>
-                        ))
+                        items?.length ? 
+                        <>
+                                {
+                                    items.map((i) => (
+                                        <ItemCard isCategory={false} key={i.id} item={i}/>
+                                    ))
+                                }
+                        </>
+                        : 
+                        <>
+                            <p className="text-2xl m-auto font-thin">
+                                Looks like everyone is sleeping in our store.....!
+                            </p>
+                        </>
                     }
                 </div>
             }

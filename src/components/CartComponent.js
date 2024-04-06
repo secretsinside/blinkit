@@ -7,6 +7,7 @@ const CartComponent = ({closeCartModal}) => {
 
     const {items, selectedItemId, totalMrp, totalDiscountedPrice } = useSelector((store) => store.cart);
     const [selectedItems, setSelectedItems] = useState(null);
+    const [saveCart, setSaveCart] = useState(false);
     const deliveryCharge = useState(0);
     const [grandTotal, setGrandTotal] = useState(0);
 
@@ -17,7 +18,12 @@ const CartComponent = ({closeCartModal}) => {
 
     useEffect(() => {
         setGrandTotal(parseInt(deliveryCharge)+parseInt(totalDiscountedPrice));
-    }, []);
+    }, [totalMrp]);
+
+    function toggleSaveCart(e) {
+        e.stopPropagation();
+        setSaveCart(!saveCart);
+    }
 
     return (
         <div className="absolute w-full h-screen top-0 left-0 bg-transparent flex">
@@ -58,6 +64,25 @@ const CartComponent = ({closeCartModal}) => {
                                     <span>Grand total</span>
                                     <span className="text-right">₹{grandTotal/100}</span>
                                 </p>
+                            </div>
+
+                            <div className="w-full my-5 rounded-md bg-white p-2">
+                                <div className="hover:cursor-pointer" onClick={toggleSaveCart}>
+                                    <input className="accent-green-700" type="checkbox" checked={saveCart}/>
+                                    <span className="px-2">Save this cart</span>
+                                </div>
+                                {
+                                    saveCart && (
+                                        <div className="my-2 border-x border-y rounded-lg p-2 flex-column">
+                                            <label className="text-xs" for="save-cart">Name your cart</label>
+                                            <div className="my-2 flex justify-between">
+                                                <input className="p-2 mr-2 focus:outline-green-700  w-full" id="save-cart" type="text" placeholder="Eg. Breakfast"/>
+                                                <button className="p-2 px-4 bg-green-700 text-white rounded-md text-sm">Save</button>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                                
                             </div>
 
                             <div className="w-full my-5 rounded-md bg-white p-2">

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 const AddBtn = ({itemCount, addCallback, removeCallback}) => {
 
     function handleAdd() {

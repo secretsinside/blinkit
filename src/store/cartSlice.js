@@ -41,6 +41,16 @@ const cartSlice = createSlice({
             state.totalMrp-= parseInt(curItem.mrp);
             return state;
         },
+        clearCart: (state) => {
+            state.items = state.items.map((item) => {
+                if(state.selectedItemId.includes(item.id)) {
+                    item.selectedQuantity = 0;
+                }
+                return item;
+            });
+            state.selectedItemId.length = 0;
+            return state;
+        },
         addInventory: (state, action) => {
             state.items.push(...action.payload);
             return state;
@@ -53,6 +63,6 @@ const cartSlice = createSlice({
 });
 
 
-export const {addItem, removeItem, addInventory, addSingleItemToInventory} = cartSlice.actions;
+export const {addItem, removeItem, addInventory, addSingleItemToInventory, clearCart} = cartSlice.actions;
 
 export default cartSlice.reducer;

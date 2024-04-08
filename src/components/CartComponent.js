@@ -51,7 +51,7 @@ const CartComponent = ({closeCartModal}) => {
                                     onClick={hideSavedCart}>
                                     <FaArrowLeft className="text-green-700 text-lg"/>
                                 </button>
-                                <span className="mx-4 font-bold text-green-700">Showing saved carts</span>
+                                <span className="mx-4 font-semibold text-green-700">Showing saved carts</span>
                             </div>
                             :
                             <button className="my-4 bg-green-700 text-white text-sm font-medium p-2 rounded-md w-full"

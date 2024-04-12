@@ -27,7 +27,7 @@ const Header = () => {
                 <span className="text-green-400">it</span>
             </div>
             <div className="w-6/12">
-                <input className="w-6/12 rounded-lg p-4 border-x border-y dark:bg-green-900"
+                <input className="w-6/12 rounded-lg p-4 border-x border-y outline-green-700 dark:bg-green-900"
                     type="text" 
                     placeholder="Search for products"/>
             </div>

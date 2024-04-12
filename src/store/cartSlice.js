@@ -48,6 +48,9 @@ const cartSlice = createSlice({
                 }
                 return item;
             });
+            state.quantity = 0;
+            state.totalDiscountedPrice = 0;
+            state.totalMrp = 0
             state.selectedItemId.length = 0;
             return state;
         },

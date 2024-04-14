@@ -32,14 +32,16 @@ const CartComponent = ({closeCartModal}) => {
 
     return (
         <div className="absolute w-full h-screen top-0 left-0 bg-transparent flex">
-            <div className="w-9/12 bg-gray-600 bg-opacity-40"
-                onClick={closeCartModal}>    
+            <div className="w-9/12 bg-gray-600 bg-opacity-45"
+                onClick={closeCartModal}>
             </div>
-            <div className="w-3/12 bg-gray-200">
+            <div className="w-3/12 bg-blue-50">
                 <div className="flex px-4 h-12 w-full justify-between bg-white">
                     <p className="font-semibold text-lg my-auto">My cart</p>
                     <button className=""
-                        onClick={closeCartModal}><FaCircleXmark className="text-lg"/></button>
+                        onClick={closeCartModal}>
+                        <FaCircleXmark className="text-lg text-green-700"/>
+                    </button>
                 </div>
                 <div className="p-4">
                     <div className="bg-white rounded-md px-2 text-center">
@@ -83,7 +85,14 @@ const CartComponent = ({closeCartModal}) => {
                                 <p className="flex items-center text-xs">
                                     <span className="w-1/12"><FaBicycle/></span>
                                     <span className="w-9/12">Delivery charge</span>
-                                    <span className="w-2/12 text-right">{deliveryCharge}</span>
+                                    { 
+                                        parseInt(deliveryCharge) == 0 ?
+                                        <span className="w-2/12 text-right text-sm, text-green-700 font-semibold">FREE</span>
+                                        :
+                                        <span className="w-2/12 text-right">
+                                        {deliveryCharge } 
+                                        </span>
+                                    }
                                 </p>
                                 <p className="flex items-center font-bold justify-between text-sm my-2">
                                     <span>Grand total</span>

@@ -5,12 +5,15 @@ import { HiShoppingCart } from "react-icons/hi";
 
 const SaveCartComponent = () => {
     const [cartName, setCartName] = useState("");
+    const [cartError, setCartError] = useState(false);
     const [saveCartFlag, setSaveCartFlag] = useState(false);
-    const {selectedItemId} = useSelector((store) => store.cart);
+    const {selectedItemId, orderingFromSavedCart, activeCartName} = useSelector((store) => store.cart);
     const [cartCreated, setCartCreated] = useState(false);
 
     function updateCartName(e) {
-        setCartName(e.target.value);
+        const c_name = e.target.value;
+        setCartName(c_name);
+        if(c_name.length > 0) setCartError(false);
     }
 
     function toggleSaveCartFlag(e) {
@@ -20,26 +23,28 @@ const SaveCartComponent = () => {
 
     async function saveCart () {
         console.log("Saving cart: ", cartName);
-        try {
-            const body = {
-                name: cartName,
-                itemId: selectedItemId
-            };
-            const response = await fetch(BASE_URL + "/cart", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(body),
-            });
-            
-            const result = await response.json();
-            setCartCreated(true);
-            console.log(result);
-            
-        } catch(e) {
-            console.log("Encountered error", e);
-        }
+        if(cartName.length > 0) {
+            try {
+                const body = {
+                    name: cartName,
+                    itemId: selectedItemId
+                };
+                const response = await fetch(BASE_URL + "/cart", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(body),
+                });
+                
+                const result = await response.json();
+                setCartCreated(true);
+                console.log(result);
+                
+            } catch(e) {
+                console.log("Encountered error", e);
+            }
+        } else setCartError(true);
 
     }
 
@@ -47,6 +52,16 @@ const SaveCartComponent = () => {
         <>
             <div className="w-full my-5 rounded-md bg-white p-2">
             {
+                orderingFromSavedCart ?
+                <div className="flex items-center">
+                    <HiShoppingCart className=" text-green-700 text-xl"/>
+                    <p className="ml-2">
+                        Ordering from&nbsp;
+                        <span className="font-semibold">{activeCartName}</span>
+                        &nbsp;cart
+                    </p>
+                </div> 
+                :
                 cartCreated ?
                 <div className="flex items-center">
                     <HiShoppingCart className=" text-green-700 text-xl"/>
@@ -76,12 +91,18 @@ const SaveCartComponent = () => {
                                         Save
                                     </button>
                                 </div>
+                                {
+                                    cartError &&
+                                    <div className="text-sm text-red-500">
+                                        Cannot have empty cart name 
+                                    </div>
+                                }
                             </div>
                         )
                     }
                 </>
                     
-                }
+            }
             </div>
         </>
     )

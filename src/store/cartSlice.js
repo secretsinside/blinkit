@@ -7,13 +7,19 @@ const cartSlice = createSlice({
         selectedItemId: [],
         quantity: 0,
         totalMrp: 0,
-        totalDiscountedPrice: 0
+        totalDiscountedPrice: 0,
+        orderingFromSavedCart: false,
+        activeCartName: undefined
     },
     reducers: {
         addItem: (state, action) => {
             let curItem = action.payload;
             let index = state.selectedItemId.indexOf(curItem.id);
-            if(index === -1) state.selectedItemId.push(curItem.id);
+            if(index === -1) {
+                state.selectedItemId.push(curItem.id);
+                state.orderingFromSavedCart = false;
+                state.activeCartName = undefined;
+            }
             for(let item of state.items) {
                 if(item.id === curItem.id) {
                     item["selectedQuantity"] = item.selectedQuantity != undefined ? item.selectedQuantity+1 : 1;
@@ -39,6 +45,13 @@ const cartSlice = createSlice({
             state.quantity--;
             state.totalDiscountedPrice-=parseInt((curItem.discountedPrice) ? curItem.discountedPrice : curItem.mrp);
             state.totalMrp-= parseInt(curItem.mrp);
+            state.orderingFromSavedCart = false;
+            state.activeCartName = false;
+            return state;
+        },
+        switchToSavedCart: (state, action) => {
+            state.orderingFromSavedCart = true;
+            state.activeCartName = action.payload.name;
             return state;
         },
         clearCart: (state) => {
@@ -48,7 +61,12 @@ const cartSlice = createSlice({
                 }
                 return item;
             });
+            state.quantity = 0;
+            state.totalDiscountedPrice = 0;
+            state.totalMrp = 0
             state.selectedItemId.length = 0;
+            state.orderingFromSavedCart = false;
+            state.activeCartName = false;
             return state;
         },
         addInventory: (state, action) => {
@@ -63,6 +81,6 @@ const cartSlice = createSlice({
 });
 
 
-export const {addItem, removeItem, addInventory, addSingleItemToInventory, clearCart} = cartSlice.actions;
+export const {addItem, removeItem, addInventory, addSingleItemToInventory, clearCart, switchToSavedCart} = cartSlice.actions;
 
 export default cartSlice.reducer;

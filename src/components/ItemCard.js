@@ -23,7 +23,7 @@ const ItemCard = ({isCategory, item, category, isCartItem}) => {
                     <img className="w-16 h-16 border-x border-y" 
                         src={item.thumbnailUrl}/>
                     <div className="w-4/6 px-2">
-                        <p className="leading-tight h-3/6">
+                        <p className="leading-tight h-3/6 font-medium">
                             {item.name.slice(0, MAX_LENGTH_OF_ITEM_NAME) + (item.name.length > MAX_LENGTH_OF_ITEM_NAME ? "..." : "")}
                         </p>
                         <p className="text-gray-500">{item.qty}</p>

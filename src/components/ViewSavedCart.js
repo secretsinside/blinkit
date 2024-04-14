@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { BASE_URL } from "../constant/constant";
 import { updateSavedCart } from "../store/savedCartSlice";
-import { addItem, clearCart } from "../store/cartSlice";
+import { addItem, clearCart, switchToSavedCart } from "../store/cartSlice";
 
 const ViewSavedCart = ({hideSaveCartView}) => {
 
@@ -31,6 +31,7 @@ const ViewSavedCart = ({hideSaveCartView}) => {
         console.log("displaying cart items : ", cartItems);
         dispatch(clearCart());
         for(let item of cartItems) dispatch(addItem(item));
+        dispatch(switchToSavedCart(cart));
         hideSaveCartView();
     }
 
@@ -57,7 +58,7 @@ const ViewSavedCart = ({hideSaveCartView}) => {
             {
                 savedCartItems.map((cart) => (
                     <div key={cart.id} 
-                        className="w-full rounded-md p-2 border-b flex justify-between items-center hover:bg-gray-100">
+                    className="w-full rounded-md p-2 border-b flex justify-between items-center hover:bg-green-100">
                         <p className="font-medium">{cart.name}</p>
                         <button className="bg-green-700 rounded-md text-sm font-semibold p-2 text-white"
                             onClick={(e) => {checkoutCart(e, cart)}}>

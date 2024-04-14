@@ -85,7 +85,14 @@ const CartComponent = ({closeCartModal}) => {
                                 <p className="flex items-center text-xs">
                                     <span className="w-1/12"><FaBicycle/></span>
                                     <span className="w-9/12">Delivery charge</span>
-                                    <span className="w-2/12 text-right">{deliveryCharge}</span>
+                                    { 
+                                        parseInt(deliveryCharge) == 0 ?
+                                        <span className="w-2/12 text-right text-sm, text-green-700 font-semibold">FREE</span>
+                                        :
+                                        <span className="w-2/12 text-right">
+                                        {deliveryCharge } 
+                                        </span>
+                                    }
                                 </p>
                                 <p className="flex items-center font-bold justify-between text-sm my-2">
                                     <span>Grand total</span>

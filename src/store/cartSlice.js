@@ -38,15 +38,17 @@ const cartSlice = createSlice({
                 let item = state.items[index];
                 if(item.id === curItem.id) {
                     let count = --item.selectedQuantity;
-                    if(count == 0) state.selectedItemId.splice(itemIndex, 1);
+                    if(count == 0) {
+                        state.selectedItemId.splice(itemIndex, 1);
+                        state.orderingFromSavedCart = false;
+                        state.activeCartName = undefined;
+                    }
                     break;
                 }
             }
             state.quantity--;
             state.totalDiscountedPrice-=parseInt((curItem.discountedPrice) ? curItem.discountedPrice : curItem.mrp);
             state.totalMrp-= parseInt(curItem.mrp);
-            state.orderingFromSavedCart = false;
-            state.activeCartName = false;
             return state;
         },
         switchToSavedCart: (state, action) => {

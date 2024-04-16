@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../store/themeSlice";
 import CartComponent from "./CartComponent";
 import { useState } from "react";
+import { getPrice } from "../utils/utilityFunctions";
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -21,8 +22,8 @@ const Header = () => {
         setShowCart(false);
     }
     return (
-        <div className="border-b-2 p-4 flex justify-between dark:bg-green-950 dark:text-white">
-            <div className="text-4xl font-extrabold w-4/12">
+        <div className="sticky top-0 backdrop-blur-sm border-b-2 p-4 flex justify-between dark:bg-green-950 dark:text-white">
+            <div className="text-5xl font-bold w-4/12">
                 <span className="text-yellow-400">blink</span>
                 <span className="text-green-400">it</span>
             </div>
@@ -32,9 +33,9 @@ const Header = () => {
                     placeholder="Search for products"/>
             </div>
             <div className="flex justify-between">
-                <button 
+                {/* <button 
                     className="mx-4 text-3xl"
-                    onClick={changeTheme}><CiLight/></button>
+                    onClick={changeTheme}><CiLight/></button> */}
                 <button className="mx-4 m-auto">Login</button>
                 <button 
                     className="p-2 text-3xl flex rounded-md bg-green-700 h-min m-auto text-white font-bold"
@@ -48,7 +49,7 @@ const Header = () => {
                         :
                         <div className="flex-column text-sm text-left m-auto">
                             <p>{cartItems.quantity} items</p>
-                            <p className="-mt-2">₹{cartItems.totalDiscountedPrice/100}</p>
+                            <p className="-mt-2">₹{getPrice(cartItems.totalDiscountedPrice)}</p>
                         </div>
                     }
                 </button>

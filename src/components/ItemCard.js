@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import AddBtn from "../utils/AddBtn";
 import { addItem, removeItem } from "../store/cartSlice";
 import { MAX_LENGTH_OF_ITEM_NAME } from "../constant/constant";
+import { getPrice } from "../utils/utilityFunctions";
 
 const ItemCard = ({isCategory, item, category, isCartItem}) => {
 
@@ -28,9 +29,9 @@ const ItemCard = ({isCategory, item, category, isCartItem}) => {
                         </p>
                         <p className="text-gray-500">{item.qty}</p>
                         <div className="flex w-1/6">
-                            <p className="font-bold">₹{item.discountedPrice/100}</p>
+                            <p className="font-bold">₹{getPrice(item.discountedPrice)}</p>
                             &nbsp;
-                            {item.mrp != item.discountedPrice && <p className="line-through text-gray-400">₹{+ item.mrp/100}</p>}
+                            {item.mrp != item.discountedPrice && <p className="line-through text-gray-400">₹{+ getPrice(item.mrp)}</p>}
                         </div>
                     </div>
                     <div className="content-end ">
@@ -42,10 +43,10 @@ const ItemCard = ({isCategory, item, category, isCartItem}) => {
                 :
                 <>
                 { isCategory ? 
-                    <div className="p-6 rounded-md w-40 flex-column">
-                        <img className="rounded-xl m-auto" 
-                            src="https://img.freepik.com/premium-photo/painting-lake-with-mountains-sun-shining-it_865053-55.jpg" 
-                            alt="image"/>
+                    <div className="p-6 rounded-md w-32 flex-column">
+                        <img className="rounded-xl m-auto size-20" 
+                            src={category.thumbnailUrl} 
+                            alt={category.name}/>
                         <p className="text-sm font-semibold text-center">{category.name}</p>
                     </div>
                     : 
@@ -66,10 +67,10 @@ const ItemCard = ({isCategory, item, category, isCartItem}) => {
                             <div className="flex justify-between h-2/6">
                                 <div className="text-xs font-semibold">
                                     {(item.discountedPrice && item.discountedPrice !== item.mrp) && <p className="">
-                                    ₹ {item.discountedPrice/100}
+                                    ₹ {getPrice(item.discountedPrice)}
                                     </p>}
                                     <p className={(item.discountedPrice && item.discountedPrice !== item.mrp) ? "line-through text-gray-400" : ""}>
-                                    ₹ {item.mrp/100}
+                                    ₹ {getPrice(item.mrp)}
                                     </p>
                                 </div>
                                 <AddBtn 

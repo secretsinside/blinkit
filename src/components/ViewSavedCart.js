@@ -58,7 +58,7 @@ const ViewSavedCart = ({hideSaveCartView}) => {
             {
                 savedCartItems.map((cart) => (
                     <div key={cart.id} 
-                    className="w-full rounded-md p-2 border-b flex justify-between items-center hover:bg-green-100">
+                    className="w-full rounded-md p-2 border-b flex justify-between items-center hover:bg-gray-100">
                         <p className="font-medium">{cart.name}</p>
                         <button className="bg-green-700 rounded-md text-sm font-semibold p-2 text-white"
                             onClick={(e) => {checkoutCart(e, cart)}}>

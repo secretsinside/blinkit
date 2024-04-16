@@ -4,6 +4,7 @@ import { category, item, item2 } from "../constant/mock";
 import ItemCard from "./ItemCard";
 import { useDispatch, useSelector } from "react-redux";
 import { addInventory } from "../store/cartSlice";
+import Category from "./CategoryComponent";
 
 const HomeComponent = () => {
 
@@ -25,40 +26,25 @@ const HomeComponent = () => {
     
     return (
         <div className="flex-column dark:bg-green-950 dark:text-white">
-            {
-                category.category !== undefined && 
-                (
-                <div className="flex flex-wrap m-auto w-8/12">
-                    {
-                        category.category.map(c => (
-                            <ItemCard isCategory={true} 
-                                category={c} 
-                                key={c.id}/>
-                        ))
-                    }
-                </div>
-                )
-            }
-            {
-                <div className="flex flex-wrap m-auto w-8/12">
-                    {
-                        items?.length ? 
-                        <>
-                                {
-                                    items.map((i) => (
-                                        <ItemCard isCategory={false} key={i.id} item={i}/>
-                                    ))
-                                }
-                        </>
-                        : 
-                        <>
-                            <p className="text-2xl m-auto font-thin">
-                                Looks like everyone is sleeping in our store.....!
-                            </p>
-                        </>
-                    }
-                </div>
-            }
+            <Category/>
+            <div className="flex flex-wrap m-auto w-8/12">
+                {
+                    items?.length ? 
+                    <>
+                            {
+                                items.map((i) => (
+                                    <ItemCard isCategory={false} key={i.id} item={i}/>
+                                ))
+                            }
+                    </>
+                    : 
+                    <>
+                        <p className="text-2xl m-auto font-thin">
+                            Looks like everyone is sleeping in our store.....!
+                        </p>
+                    </>
+                }
+            </div>
         </div>
     )
 }

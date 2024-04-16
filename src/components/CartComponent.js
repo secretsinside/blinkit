@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
 import SaveCartComponent from "./SaveCartComponent";
 import ViewSavedCart from "./ViewSavedCart";
+import { getPrice } from "../utils/utilityFunctions";
 
 const CartComponent = ({closeCartModal}) => {
 
@@ -32,7 +33,7 @@ const CartComponent = ({closeCartModal}) => {
 
     return (
         <div className="absolute w-full h-screen top-0 left-0 bg-transparent flex">
-            <div className="w-9/12 bg-gray-600 bg-opacity-45"
+            <div className="w-9/12 bg-black bg-opacity-60"
                 onClick={closeCartModal}>
             </div>
             <div className="w-3/12 bg-blue-50">
@@ -79,8 +80,8 @@ const CartComponent = ({closeCartModal}) => {
                                 <p className="flex items-center text-xs">
                                     <span className="w-1/12"><FaFile/></span>
                                     <span className="w-9/12">Item total</span>
-                                    <span className="line-through text-gray-400 w-1/12">₹{totalMrp/100}</span>
-                                    <span className="w-1/12 text-right">₹{totalDiscountedPrice/100}</span>
+                                    <span className="line-through text-gray-400 w-1/12">₹{getPrice(totalMrp)}</span>
+                                    <span className="w-1/12 text-right">₹{getPrice(totalDiscountedPrice)}</span>
                                 </p>
                                 <p className="flex items-center text-xs">
                                     <span className="w-1/12"><FaBicycle/></span>
@@ -96,7 +97,7 @@ const CartComponent = ({closeCartModal}) => {
                                 </p>
                                 <p className="flex items-center font-bold justify-between text-sm my-2">
                                     <span>Grand total</span>
-                                    <span className="text-right">₹{grandTotal/100}</span>
+                                    <span className="text-right">₹{getPrice(grandTotal)}</span>
                                 </p>
                             </div>
 
@@ -104,7 +105,7 @@ const CartComponent = ({closeCartModal}) => {
 
                             <div className="w-full my-5 rounded-md bg-white p-2">
                                 <button className="w-full my-4 bg-green-700 text-white text-sm py-4 px-2 rounded-md flex items-center font-bold">
-                                    <span className="font-bold w-1/6 text-left">₹{grandTotal/100}</span>
+                                    <span className="font-bold w-1/6 text-left">₹{getPrice(grandTotal)}</span>
                                     <span className="w-4/6">Proceed to pay</span>
                                     <span className="w-1/6 text-force-right"><FaCaretRight/></span>
                                 </button>

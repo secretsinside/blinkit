@@ -9,10 +9,14 @@ const savedCartSlice = createSlice({
         updateSavedCart: (state, action) => {
             state.savedCartItems = action.payload;
             return state;
+        },
+        addSavedCart: (state, action) => {
+            state.savedCartItems.push(action.payload);
+            return state;
         }
     }
 })
 
-export const {updateSavedCart} = savedCartSlice.actions;
+export const {updateSavedCart, addSavedCart} = savedCartSlice.actions;
 
 export default savedCartSlice.reducer;

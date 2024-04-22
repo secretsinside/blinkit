@@ -1,7 +1,8 @@
 import { useState } from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { BASE_URL } from "../constant/constant";
 import { HiShoppingCart } from "react-icons/hi";
+import { addSavedCart } from "../store/savedCartSlice";
 
 const SaveCartComponent = () => {
     const [cartName, setCartName] = useState("");
@@ -9,6 +10,7 @@ const SaveCartComponent = () => {
     const [saveCartFlag, setSaveCartFlag] = useState(false);
     const {selectedItemId, orderingFromSavedCart, activeCartName} = useSelector((store) => store.cart);
     const [cartCreated, setCartCreated] = useState(false);
+    const dispatch = useDispatch();
 
     function updateCartName(e) {
         const c_name = e.target.value;
@@ -39,6 +41,7 @@ const SaveCartComponent = () => {
                 
                 const result = await response.json();
                 setCartCreated(true);
+                dispatch(addSavedCart(result));
                 console.log(result);
                 
             } catch(e) {

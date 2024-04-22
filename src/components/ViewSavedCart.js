@@ -12,10 +12,12 @@ const ViewSavedCart = ({hideSaveCartView}) => {
 
     const fetchSavedCart = async () => {
         try {
-            const response = await fetch(BASE_URL + "/cart");
-            const data = await response.json();
-            dispatch(updateSavedCart(data));
-            console.log("Printing data", data);
+            if(savedCartItems.length === 0) {
+                const response = await fetch(BASE_URL + "/cart");
+                const data = await response.json();
+                dispatch(updateSavedCart(data));
+                console.log("Printing data", data);
+            }
         } catch(e) {
             console.log("Error fetching saved carts");
         }
